@@ -2,8 +2,10 @@ from keras.applications import resnet50
 from keras.preprocessing.image import ImageDataGenerator
 
 def main():
+    # Off-the-shelf ResNet-50.
+    # TODO Replace with ResNext w/ multiple tasks (gender, age, etc.)
     model = resnet50.ResNet50(include_top=True, weights=None, classes=2)
-    model.compile(optimizer='adam',
+    model.compile(optimizer='adam', # TODO: replace with tuned SGD
                   loss="categorical_crossentropy",
                   metrics=["accuracy"])
 
