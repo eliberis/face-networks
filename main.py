@@ -1,5 +1,6 @@
 from keras.applications import resnet50
 from keras.preprocessing.image import ImageDataGenerator
+from keras.callbacks import ModelCheckpoint
 
 def main():
     # Off-the-shelf ResNet-50.
@@ -24,11 +25,15 @@ def main():
                                            batch_size=32,
                                            seed=0)
 
+    checkpointer = ModelCheckpoint(filepath='best-weights.h5', verbose=1,
+                                   save_best_only=True)
+
     model.fit_generator(train_gen, 343,
                         validation_data=test_gen,
                         validation_steps=80,
-                        epochs=200,
-                        use_multiprocessing=True)
+                        epochs=1500,
+                        use_multiprocessing=True,
+                        callbacks=[checkpointer])
 
 if __name__ == '__main__':
     main()
